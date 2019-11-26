@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <update id="Tec_CustomReports::top_level"
+             title="Tec"
+             module="Tec_CustomReports"
+             sortOrder="9999"
+             resource="Tec_CustomReports::top_level"
+        />
+        <add id="Tec_Management::heading"
+             title="Features Management"
+             module="Tec_Management"
+             sortOrder="72"
+             parent="Tec_CustomReports::top_level"
+             resource="Tec_Management::heading"
+        />
+        <add id="Tec_Management::featureslgrid"
+             title="Features List"
+             module="Tec_Management"
+             action="tecfeature/feature/index"
+             sortOrder="72"
+             parent="Tec_Management::heading"
+             resource="Tec_Management::featureslgrids"
+        />
+        <add id="Tec_Management::csvsegmentlgrid"
+             title="Csv Segments"
+             module="Tec_Management"
+             action="tecfeature/segment/index"
+             sortOrder="73"
+             parent="Tec_Management::heading"
+             resource="Tec_Management::csvsegmentlgrid"
+        />
+    </menu>
+</config>
+
+

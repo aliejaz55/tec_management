@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="feature_listing_data_source" xsi:type="string">Tec\Management\Model\ResourceModel\Feature\Grid\Collection</item>
+                <item name="segment_listing_data_source" xsi:type="string">Tec\Management\Model\ResourceModel\Segment\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Tec\Management\Model\ResourceModel\Feature\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">features_details</argument>
+            <argument name="eventPrefix" xsi:type="string">features_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">features_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Tec\Management\Model\ResourceModel\Feature</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="featureGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="featureGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Tec\Management\Model\ResourceModel\Feature\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">featureGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <!-- CSV Segments -->
+    <virtualType name="Tec\Management\Model\ResourceModel\Segment\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">csv_segments</argument>
+            <argument name="eventPrefix" xsi:type="string">segment_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">segment_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Tec\Management\Model\ResourceModel\Segment</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="segmentGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="segmentGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Tec\Management\Model\ResourceModel\Segment\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">segmentGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Tec\Management\SegmentUpload" type="Tec\Management\Model\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">segment_upload/tmp</argument>
+            <argument name="basePath" xsi:type="string">segment_upload</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="csv" xsi:type="string">csv</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Tec\Management\Controller\Adminhtml\Segment\Upload">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Tec\Management\SegmentUpload</argument>
+        </arguments>
+    </type>
+</config>
